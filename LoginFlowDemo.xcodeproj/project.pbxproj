@@ -15,6 +15,8 @@
 		C81F15E2207CA13D00419E79 /* LoginFlowDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15E1207CA13D00419E79 /* LoginFlowDemoUITests.swift */; };
 		C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15EF207CA21400419E79 /* WelcomeViewController.swift */; };
 		C81F15F3207CA6BB00419E79 /* NavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */; };
+		C81F15F5207CA7B800419E79 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15F4207CA7B800419E79 /* LoginViewController.swift */; };
+		C81F15F8207CB45200419E79 /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15F7207CB45200419E79 /* UIColor+Palette.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		C81F15E3207CA13D00419E79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C81F15EF207CA21400419E79 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHandler.swift; sourceTree = "<group>"; };
+		C81F15F4207CA7B800419E79 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C81F15F7207CB45200419E79 /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 				C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */,
 				C81F15C5207CA13C00419E79 /* Main.storyboard */,
 				C81F15C8207CA13D00419E79 /* Assets.xcassets */,
+				C81F15F6207CB43800419E79 /* Additions */,
 				C81F15F1207CA4E700419E79 /* Login */,
 				C81F15CA207CA13D00419E79 /* LaunchScreen.storyboard */,
 				C81F15CD207CA13D00419E79 /* Info.plist */,
@@ -131,9 +136,18 @@
 		C81F15F1207CA4E700419E79 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C81F15F4207CA7B800419E79 /* LoginViewController.swift */,
 				C81F15EF207CA21400419E79 /* WelcomeViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		C81F15F6207CB43800419E79 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				C81F15F7207CB45200419E79 /* UIColor+Palette.swift */,
+			);
+			path = Additions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,9 +281,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C81F15F5207CA7B800419E79 /* LoginViewController.swift in Sources */,
 				C81F15F3207CA6BB00419E79 /* NavigationHandler.swift in Sources */,
 				C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */,
 				C81F15C2207CA13C00419E79 /* AppDelegate.swift in Sources */,
+				C81F15F8207CB45200419E79 /* UIColor+Palette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
