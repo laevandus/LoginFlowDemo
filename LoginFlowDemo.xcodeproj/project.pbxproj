@@ -14,6 +14,7 @@
 		C81F15D7207CA13D00419E79 /* LoginFlowDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15D6207CA13D00419E79 /* LoginFlowDemoTests.swift */; };
 		C81F15E2207CA13D00419E79 /* LoginFlowDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15E1207CA13D00419E79 /* LoginFlowDemoUITests.swift */; };
 		C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15EF207CA21400419E79 /* WelcomeViewController.swift */; };
+		C81F15F3207CA6BB00419E79 /* NavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		C81F15E1207CA13D00419E79 /* LoginFlowDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowDemoUITests.swift; sourceTree = "<group>"; };
 		C81F15E3207CA13D00419E79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C81F15EF207CA21400419E79 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				C81F15C1207CA13C00419E79 /* AppDelegate.swift */,
+				C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */,
 				C81F15C5207CA13C00419E79 /* Main.storyboard */,
 				C81F15C8207CA13D00419E79 /* Assets.xcassets */,
 				C81F15F1207CA4E700419E79 /* Login */,
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C81F15F3207CA6BB00419E79 /* NavigationHandler.swift in Sources */,
 				C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */,
 				C81F15C2207CA13C00419E79 /* AppDelegate.swift in Sources */,
 			);
