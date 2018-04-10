@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		C81F15C2207CA13C00419E79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15C1207CA13C00419E79 /* AppDelegate.swift */; };
-		C81F15C4207CA13C00419E79 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15C3207CA13C00419E79 /* ViewController.swift */; };
 		C81F15C7207CA13C00419E79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F15C5207CA13C00419E79 /* Main.storyboard */; };
 		C81F15C9207CA13D00419E79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81F15C8207CA13D00419E79 /* Assets.xcassets */; };
 		C81F15CC207CA13D00419E79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F15CA207CA13D00419E79 /* LaunchScreen.storyboard */; };
 		C81F15D7207CA13D00419E79 /* LoginFlowDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15D6207CA13D00419E79 /* LoginFlowDemoTests.swift */; };
 		C81F15E2207CA13D00419E79 /* LoginFlowDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15E1207CA13D00419E79 /* LoginFlowDemoUITests.swift */; };
+		C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15EF207CA21400419E79 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 /* Begin PBXFileReference section */
 		C81F15BE207CA13C00419E79 /* LoginFlowDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginFlowDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81F15C1207CA13C00419E79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C81F15C3207CA13C00419E79 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C81F15C6207CA13C00419E79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C81F15C8207CA13D00419E79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C81F15CB207CA13D00419E79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		C81F15DD207CA13D00419E79 /* LoginFlowDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoginFlowDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81F15E1207CA13D00419E79 /* LoginFlowDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowDemoUITests.swift; sourceTree = "<group>"; };
 		C81F15E3207CA13D00419E79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C81F15EF207CA21400419E79 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +98,9 @@
 			isa = PBXGroup;
 			children = (
 				C81F15C1207CA13C00419E79 /* AppDelegate.swift */,
-				C81F15C3207CA13C00419E79 /* ViewController.swift */,
 				C81F15C5207CA13C00419E79 /* Main.storyboard */,
 				C81F15C8207CA13D00419E79 /* Assets.xcassets */,
+				C81F15F1207CA4E700419E79 /* Login */,
 				C81F15CA207CA13D00419E79 /* LaunchScreen.storyboard */,
 				C81F15CD207CA13D00419E79 /* Info.plist */,
 			);
@@ -123,6 +123,14 @@
 				C81F15E3207CA13D00419E79 /* Info.plist */,
 			);
 			path = LoginFlowDemoUITests;
+			sourceTree = "<group>";
+		};
+		C81F15F1207CA4E700419E79 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C81F15EF207CA21400419E79 /* WelcomeViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C81F15C4207CA13C00419E79 /* ViewController.swift in Sources */,
+				C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */,
 				C81F15C2207CA13C00419E79 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +445,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=500";
 				PRODUCT_BUNDLE_IDENTIFIER = com.toomasvahter.LoginFlowDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
