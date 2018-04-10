@@ -21,6 +21,7 @@
 		C81F15FD207CB6AF00419E79 /* SignUpAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15FC207CB6AF00419E79 /* SignUpAccountViewController.swift */; };
 		C81F15FF207CB6D200419E79 /* SignUpAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15FE207CB6D200419E79 /* SignUpAddressViewController.swift */; };
 		C81F1601207CC48200419E79 /* KeyboardVisibilityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1600207CC48200419E79 /* KeyboardVisibilityHandler.swift */; };
+		C81F1604207CCA9700419E79 /* CountriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1603207CCA9700419E79 /* CountriesDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		C81F15FC207CB6AF00419E79 /* SignUpAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAccountViewController.swift; sourceTree = "<group>"; };
 		C81F15FE207CB6D200419E79 /* SignUpAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAddressViewController.swift; sourceTree = "<group>"; };
 		C81F1600207CC48200419E79 /* KeyboardVisibilityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardVisibilityHandler.swift; sourceTree = "<group>"; };
+		C81F1603207CCA9700419E79 /* CountriesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,11 +165,20 @@
 		C81F15F9207CB64D00419E79 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				C81F1602207CCA7A00419E79 /* Model */,
 				C81F15FA207CB68F00419E79 /* SignUpIntroductionViewController.swift */,
 				C81F15FC207CB6AF00419E79 /* SignUpAccountViewController.swift */,
 				C81F15FE207CB6D200419E79 /* SignUpAddressViewController.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		C81F1602207CCA7A00419E79 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C81F1603207CCA9700419E79 /* CountriesDataSource.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				C81F15F0207CA21400419E79 /* WelcomeViewController.swift in Sources */,
 				C81F15C2207CA13C00419E79 /* AppDelegate.swift in Sources */,
 				C81F15FF207CB6D200419E79 /* SignUpAddressViewController.swift in Sources */,
+				C81F1604207CCA9700419E79 /* CountriesDataSource.swift in Sources */,
 				C81F15FD207CB6AF00419E79 /* SignUpAccountViewController.swift in Sources */,
 				C81F15F8207CB45200419E79 /* UIColor+Palette.swift in Sources */,
 			);

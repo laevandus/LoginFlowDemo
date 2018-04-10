@@ -15,10 +15,11 @@ final class SignUpAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         checkBoxButton.setBackgroundImage(#imageLiteral(resourceName: "CheckBoxUnselected"), for: .normal)
+        validateInput()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         keyboardVisibilityObserver = {
             let observer = KeyboardVisibilityHandler()
             observer.keyboardWillHideHandler = { [weak self] duration in
@@ -41,6 +42,11 @@ final class SignUpAccountViewController: UIViewController {
             self?.validateInput()
         })
         validateInput()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.window?.endEditing(true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {

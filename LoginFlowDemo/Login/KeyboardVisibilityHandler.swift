@@ -20,12 +20,6 @@ final class KeyboardVisibilityHandler {
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
             closureSelf.keyboardWillShowHandler?(frame, duration)
         })
-        notificationObservers.append(NotificationCenter.default.addObserver(forName: .UIKeyboardDidChangeFrame, object: nil, queue: .main) { [weak self] (notification) in
-            guard let closureSelf = self else { return }
-            guard let frame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
-            guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
-            closureSelf.keyboardWillShowHandler?(frame, duration)
-        })
         notificationObservers.append(NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: .main) { [weak self] (notification) in
             guard let closureSelf = self else { return }
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval else { return }
