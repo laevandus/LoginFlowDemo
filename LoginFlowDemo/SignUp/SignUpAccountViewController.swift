@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  SignUpAccountViewController.swift
 //  LoginFlowDemo
 //
 //  Created by Toomas Vahter on 10/04/2018.
@@ -8,9 +8,14 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController, UITextFieldDelegate {
+final class SignUpAccountViewController: UIViewController {
 
     // MARK: Responding to View Events
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        checkBoxButton.setBackgroundImage(#imageLiteral(resourceName: "CheckBoxUnselected"), for: .normal)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,37 +51,42 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
             textFieldObserver = nil
         }
     }
+
+    
+    // MARK: Managing the Check Box
+    
+    @IBOutlet weak var checkBoxButton: UIButton!
+    
+    @IBAction func toggleTermsAndServices(_ sender: Any) {
+        guard let button = sender as? UIButton else { return }
+        button.setBackgroundImage(button.isSelected ? #imageLiteral(resourceName: "CheckBoxUnselected") : #imageLiteral(resourceName: "CheckBoxSelected") , for: .normal)
+        button.isSelected = !button.isSelected
+        validateInput()
+    }
     
     
     // MARK: Handling Editing and Validating Input
     
-    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     private var keyboardVisibilityObserver: KeyboardVisibilityHandler? = nil
     private var textFieldObserver: NSObjectProtocol? = nil
-    
-    private func validateInput() {
-        let canSignIn: Bool = {
-            guard (emailTextField.text?.count ?? 0) > 0 else { return false }
-            guard (passwordTextField.text?.count ?? 0) > 0 else { return false }
-            return true
-        }()
-        loginButton.isEnabled = canSignIn
-        loginButton.backgroundColor = canSignIn ? UIColor.coolGreen : UIColor.lightGray
-    }
-    
-    
-    // MARK: Performing Logging
-    
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
     
-    @IBAction func login(_ sender: Any) {
-        print("Perform logging with email \(String(describing: emailTextField.text)).")
+    private func validateInput() {
+        let canContinue: Bool = {
+            guard (emailTextField.text?.count ?? 0) > 0 else { return false }
+            guard (passwordTextField.text?.count ?? 0) > 0 else { return false }
+            guard checkBoxButton.isSelected else { return false }
+            return true
+        }()
+        nextButton.isEnabled = canContinue
+        nextButton.backgroundColor = canContinue ? UIColor.coolGreen : UIColor.lightGray
     }
 }
 
-extension LoginViewController: Navigatable {
+extension SignUpAccountViewController: Navigatable {
     var needsNavigationBar: Bool {
         return true
     }
