@@ -15,6 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let dependencies = Dependencies()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        dependencies.navigationHandler.willNavigate = { [weak self] viewController in
+            if let networking = viewController as? Networking {
+                networking.webClient = self?.dependencies.webClient
+            }
+        }
+        
         guard let navigationController = window?.rootViewController as? UINavigationController else {
             fatalError("Initial view controller is not navigation controller.")
         }
@@ -25,5 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 private struct Dependencies {
     let navigationHandler = NavigationHandler()
+    let webClient = WebClient(baseURL: URL(string: "https://poco-test.herokuapp.com")!)
 }
 

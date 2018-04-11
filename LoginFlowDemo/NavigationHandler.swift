@@ -17,7 +17,11 @@ final class NavigationHandler: NSObject, UINavigationControllerDelegate {
         else {
             navigationController.isNavigationBarHidden = true
         }
+        
+        willNavigate?(viewController)
     }
+    
+    var willNavigate: ((UIViewController) -> Void)? = nil
 }
 
 protocol Navigatable {
