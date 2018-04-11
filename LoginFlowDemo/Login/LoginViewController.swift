@@ -95,7 +95,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
             
             switch error {
             case .noError:
-                closureSelf.performSegue(withIdentifier: "success", sender: self)
+                closureSelf.performSegue(withIdentifier: "success", sender: closureSelf)
             case .invalidResponse:
                 let alert: UIAlertController = {
                     let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
@@ -108,7 +108,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
                 closureSelf.present(alert, animated: true, completion: nil)
             case .custom(let customError):
                 switch customError {
-                case .invalidCredentials:
+                case .passwordTooShort, .invalidCredentials:
                     let alert: UIAlertController = {
                         let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
                         let suggestion = NSLocalizedString("LoggingIn_FailedAlert_CheckCredentialsSuggestion", comment: "Alert suggestion when logging in failed with invalid credentials.")

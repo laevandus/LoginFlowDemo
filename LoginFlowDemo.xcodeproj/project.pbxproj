@@ -25,7 +25,7 @@
 		C81F15FD207CB6AF00419E79 /* SignUpAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15FC207CB6AF00419E79 /* SignUpAccountViewController.swift */; };
 		C81F15FF207CB6D200419E79 /* SignUpAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15FE207CB6D200419E79 /* SignUpAddressViewController.swift */; };
 		C81F1601207CC48200419E79 /* KeyboardVisibilityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1600207CC48200419E79 /* KeyboardVisibilityHandler.swift */; };
-		C81F1604207CCA9700419E79 /* CountriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1603207CCA9700419E79 /* CountriesDataSource.swift */; };
+		C81F1604207CCA9700419E79 /* CountriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1603207CCA9700419E79 /* CountriesController.swift */; };
 		C81F1607207CD6B900419E79 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1606207CD6B900419E79 /* WebClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +71,7 @@
 		C81F15FC207CB6AF00419E79 /* SignUpAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAccountViewController.swift; sourceTree = "<group>"; };
 		C81F15FE207CB6D200419E79 /* SignUpAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAddressViewController.swift; sourceTree = "<group>"; };
 		C81F1600207CC48200419E79 /* KeyboardVisibilityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardVisibilityHandler.swift; sourceTree = "<group>"; };
-		C81F1603207CCA9700419E79 /* CountriesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesDataSource.swift; sourceTree = "<group>"; };
+		C81F1603207CCA9700419E79 /* CountriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesController.swift; sourceTree = "<group>"; };
 		C81F1606207CD6B900419E79 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,20 +177,12 @@
 		C81F15F9207CB64D00419E79 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				C81F1602207CCA7A00419E79 /* Model */,
+				C81F1603207CCA9700419E79 /* CountriesController.swift */,
 				C81F15FA207CB68F00419E79 /* SignUpIntroductionViewController.swift */,
 				C81F15FC207CB6AF00419E79 /* SignUpAccountViewController.swift */,
 				C81F15FE207CB6D200419E79 /* SignUpAddressViewController.swift */,
 			);
 			path = SignUp;
-			sourceTree = "<group>";
-		};
-		C81F1602207CCA7A00419E79 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C81F1603207CCA9700419E79 /* CountriesDataSource.swift */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		C81F1605207CD6A000419E79 /* WebClient */ = {
@@ -346,7 +338,7 @@
 				C81F15FF207CB6D200419E79 /* SignUpAddressViewController.swift in Sources */,
 				C80198FB207DCF7400546E1D /* AccountCredentials.swift in Sources */,
 				C81F1607207CD6B900419E79 /* WebClient.swift in Sources */,
-				C81F1604207CCA9700419E79 /* CountriesDataSource.swift in Sources */,
+				C81F1604207CCA9700419E79 /* CountriesController.swift in Sources */,
 				C81F15FD207CB6AF00419E79 /* SignUpAccountViewController.swift in Sources */,
 				C81F15F8207CB45200419E79 /* UIColor+Palette.swift in Sources */,
 				C80198FF207DEF4600546E1D /* Account.swift in Sources */,

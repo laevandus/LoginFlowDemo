@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SignUpAccountViewController: UIViewController {
+final class SignUpAccountViewController: UIViewController, AccountCoordinator {
 
     // MARK: Responding to View Events
     
@@ -65,8 +65,8 @@ final class SignUpAccountViewController: UIViewController {
     
     @IBAction func toggleTermsAndServices(_ sender: Any) {
         guard let button = sender as? UIButton else { return }
-        button.setBackgroundImage(button.isSelected ? #imageLiteral(resourceName: "CheckBoxUnselected") : #imageLiteral(resourceName: "CheckBoxSelected") , for: .normal)
         button.isSelected = !button.isSelected
+        button.setBackgroundImage(button.isSelected ? #imageLiteral(resourceName: "CheckBoxSelected") : #imageLiteral(resourceName: "CheckBoxUnselected") , for: .normal)
         validateInput()
     }
     
@@ -89,6 +89,37 @@ final class SignUpAccountViewController: UIViewController {
         }()
         nextButton.isEnabled = canContinue
         nextButton.backgroundColor = canContinue ? UIColor.coolGreen : UIColor.lightGray
+        
+        if let email = emailTextField.text {
+            title = "2/3 " + email.prefix(5)
+        }
+        else {
+            title = "2/3"
+        }
+    }
+    
+    
+    // MARK: Account Coordination
+    
+    private var account = Account()
+    
+    func filledAccount() -> Account {
+        var filledAccount = account
+        filledAccount.email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        filledAccount.password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        filledAccount.isTermsAndServicesAccepted = checkBoxButton.isSelected
+        return filledAccount
+    }
+    
+    func fill(_ account: Account) {
+        self.account = account
+    }
+    
+    func refreshAccountUI() {
+        checkBoxButton.isSelected = account.isTermsAndServicesAccepted
+        checkBoxButton.setBackgroundImage(checkBoxButton.isSelected ? #imageLiteral(resourceName: "CheckBoxSelected") : #imageLiteral(resourceName: "CheckBoxUnselected") , for: .normal)
+        emailTextField.text = account.email
+        passwordTextField.text = account.password
     }
 }
 

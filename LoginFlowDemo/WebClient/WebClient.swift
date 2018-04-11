@@ -86,6 +86,7 @@ struct ErrorPayload: Codable {
 
 extension ErrorPayload {
     enum Custom: String, Decodable {
+        case passwordTooShort = "err.password.too.short"
         case invalidCredentials = "err.wrong.credentials"
         case timeout = "err.timeout"
         case unknown = "err.unknown"

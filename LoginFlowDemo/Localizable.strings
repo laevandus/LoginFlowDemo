@@ -13,5 +13,7 @@ LoggingIn_FailedAlert_CheckCredentialsSuggestion = "Please check your credential
 LoggingIn_FailedAlert_ButtonTitle = "OK";
 
 Register_FailedAlert_Title = "Failed to register an account.";
-Register_FailedAlert_Suggestion = "Please try again.";
+Register_FailedAlert_GenericSuggestion = "Please try again.";
+Register_FailedAlert_CheckCredentialsSuggestion = "Please check your credentials and try again.";
+Register_FailedAlert_PasswordShortSuggestion = "Please enter longer password and try again.";
 Register_FailedAlert_ButtonTitle = "OK";

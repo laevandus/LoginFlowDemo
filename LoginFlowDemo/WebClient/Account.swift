@@ -9,11 +9,12 @@
 import Foundation
 
 struct Account: Codable {
-    let email: String
-    let password: String
-    var country: String
-    var city: String
-    var postalCode: String
+    var email: String = ""
+    var password: String = ""
+    var country: String = ""
+    var city: String = ""
+    var postalCode: String = ""
+    var isTermsAndServicesAccepted = false
     
     enum CodingKeys: String, CodingKey {
         case email, password, country, city

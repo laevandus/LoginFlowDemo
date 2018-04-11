@@ -8,13 +8,14 @@
 
 import UIKit
 
-final class SignUpAddressViewController: UIViewController, Networking {
+final class SignUpAddressViewController: UIViewController, Networking, AccountCoordinator {
 
     // MARK: Responding to View Events
     
     override func loadView() {
         super.loadView()
-        
+        countriesController = CountriesController(pickerView: pickerView)
+        pickerView.reloadAllComponents()
         // Reduce space around picker.
         if let first = stackView.arrangedSubviews.first {
             stackView.setCustomSpacing(0, after: first)
@@ -41,10 +42,6 @@ final class SignUpAddressViewController: UIViewController, Networking {
             }
             return observer
         }()
-        textFieldObserver = NotificationCenter.default.addObserver(forName: .UITextFieldTextDidChange, object: nil, queue: .main, using: { [weak self] (notification) in
-            self?.validateInput()
-        })
-        validateInput()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,64 +52,42 @@ final class SignUpAddressViewController: UIViewController, Networking {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         keyboardVisibilityObserver = nil
-        if let observer = textFieldObserver {
-            NotificationCenter.default.removeObserver(observer)
-            textFieldObserver = nil
-        }
-    }
-    
-    
-    // MARK: Handling Editing and Validating Input
-    
-    @IBOutlet weak var stackView: UIStackView!
-    private var keyboardVisibilityObserver: KeyboardVisibilityHandler? = nil
-    private var textFieldObserver: NSObjectProtocol? = nil
-    @IBOutlet var countriesController: CountriesDataSource!
-    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var postalIndexTextField: UITextField!
-    @IBOutlet weak var registerButton: UIButton!
-    
-    private func validateInput() {
-        let canContinue: Bool = {
-            guard (cityTextField.text?.count ?? 0) > 0 else { return false }
-            guard (postalIndexTextField.text?.count ?? 0) > 0 else { return false }
-            return true
-        }()
-        registerButton.isEnabled = canContinue
-        registerButton.backgroundColor = canContinue ? UIColor.coolGreen : UIColor.lightGray
     }
     
     
     // MARK: Registering Account
     
+    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var postalIndexTextField: UITextField!
+    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    private var countriesController: CountriesController? = nil
+    private var keyboardVisibilityObserver: KeyboardVisibilityHandler? = nil
     var webClient: WebClient? = nil
     
     @IBAction func register(_ sender: Any) {
-        print("Perform registration.")
-        
         view.window?.endEditing(true)
         let controls = stackView.arrangedSubviews.compactMap({ $0 as? UIControl })
         controls.forEach({ $0.isEnabled = false })
         activityIndicator.startAnimating()
-        
-        let account = Account(email: "test@toomas.ee", password: "jeejee", country: "EE", city: cityTextField.text ?? "", postalCode: postalIndexTextField.text ?? "")
+        let account = filledAccount()
         let resource = Resource<Account>(content: account, path: "/addUser")
         webClient?.load(resource, completionHandler: { [weak self] (response, error) in
-            print("Registering new account finished with response \(String(describing: response)) and error \(String(describing: error)).")
             guard let closureSelf = self else { return }
             
             controls.forEach({ $0.isEnabled = true })
             closureSelf.activityIndicator.stopAnimating()
-            
+  
             switch error {
             case .noError:
                 closureSelf.performSegue(withIdentifier: "success", sender: self)
             case .invalidResponse:
                 let alert: UIAlertController = {
                     let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
-                    let suggestion = NSLocalizedString("Register_FailedAlert_Suggestion", comment: "Alert suggestion when registering a new account failed.")
+                    let suggestion = NSLocalizedString("Register_FailedAlert_GenericSuggestion", comment: "Alert suggestion when registering a new account failed.")
                     let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
                     let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
@@ -122,14 +97,64 @@ final class SignUpAddressViewController: UIViewController, Networking {
             case .custom(let customError):
                 switch customError {
                 case .invalidCredentials:
-                    break
+                    let alert: UIAlertController = {
+                        let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
+                        let suggestion = NSLocalizedString("Register_FailedAlert_CheckCredentialsSuggestion", comment: "Alert suggestion when registering a new account failed as credentials are invalid.")
+                        let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                        return alert
+                    }()
+                    closureSelf.present(alert, animated: true, completion: nil)
                 case .timeout:
                     break
+                case .passwordTooShort:
+                    let alert: UIAlertController = {
+                        let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
+                        let suggestion = NSLocalizedString("Register_FailedAlert_PasswordShortSuggestion", comment: "Alert suggestion when registering new account failed.")
+                        let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                        return alert
+                    }()
+                    closureSelf.present(alert, animated: true, completion: nil)
                 case .unknown:
-                    break
+                    let alert: UIAlertController = {
+                        let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
+                        let suggestion = NSLocalizedString("Register_FailedAlert_GenericSuggestion", comment: "Alert suggestion when registering a new account failed.")
+                        let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                        return alert
+                    }()
+                    closureSelf.present(alert, animated: true, completion: nil)
                 }
             }
         })
+    }
+    
+    
+    // MARK: Account Coordination
+    
+    private var account = Account()
+    
+    func filledAccount() -> Account {
+        var filledAccount = account
+        filledAccount.country = countriesController?.selectedCountryCode ?? ""
+        filledAccount.city = cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        filledAccount.postalCode = postalIndexTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return filledAccount
+    }
+    
+    func fill(_ account: Account) {
+        self.account = account
+    }
+    
+    func refreshAccountUI() {
+        let countryCode = account.country
+        pickerView.selectRow(countriesController?.index(ofCountry: countryCode) ?? 0, inComponent: 0, animated: false)
+        cityTextField.text = account.city
+        postalIndexTextField.text = account.postalCode
     }
 }
 

@@ -271,10 +271,6 @@
                                         <subviews>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0r-SZ-l3I">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="216"/>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="jSI-Xk-fIc" id="p3q-Zg-tka"/>
-                                                    <outlet property="delegate" destination="jSI-Xk-fIc" id="qYw-JF-AXU"/>
-                                                </connections>
                                             </pickerView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pbJ-di-DuO">
                                                 <rect key="frame" x="0.0" y="236" width="335" height="30"/>
@@ -333,7 +329,7 @@
                         <outlet property="activityIndicator" destination="bgE-nl-ojW" id="EyG-aD-Et3"/>
                         <outlet property="cityTextField" destination="pbJ-di-DuO" id="SMU-QU-Mzs"/>
                         <outlet property="containerBottomConstraint" destination="Dia-vv-qSc" id="e6c-bb-Oxq"/>
-                        <outlet property="countriesController" destination="jSI-Xk-fIc" id="b8f-Uo-LQZ"/>
+                        <outlet property="pickerView" destination="f0r-SZ-l3I" id="pKW-LS-XQO"/>
                         <outlet property="postalIndexTextField" destination="FPV-Zv-dVW" id="SHp-Tw-l2d"/>
                         <outlet property="registerButton" destination="jd1-yR-7xn" id="hCr-kx-qmO"/>
                         <outlet property="stackView" destination="hVN-Lb-VT1" id="VW5-9O-wZr"/>
@@ -341,7 +337,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="59N-QF-qOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="jSI-Xk-fIc" customClass="CountriesDataSource" customModule="LoginFlowDemo" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="2570" y="873"/>
         </scene>

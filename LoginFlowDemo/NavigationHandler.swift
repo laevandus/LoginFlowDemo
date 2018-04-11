@@ -17,8 +17,18 @@ final class NavigationHandler: NSObject, UINavigationControllerDelegate {
         else {
             navigationController.isNavigationBarHidden = true
         }
-        
+        (viewController as? AccountCoordinator)?.refreshAccountUI()
         willNavigate?(viewController)
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if let nextAccountCoordinator = toVC as? AccountCoordinator {
+            if let currentAccountCoordinator = fromVC as? AccountCoordinator {
+                nextAccountCoordinator.fill(currentAccountCoordinator.filledAccount())
+            }
+        }
+        
+        return nil
     }
     
     var willNavigate: ((UIViewController) -> Void)? = nil
@@ -26,5 +36,11 @@ final class NavigationHandler: NSObject, UINavigationControllerDelegate {
 
 protocol Navigatable {
     var needsNavigationBar: Bool { get }
+}
+
+protocol AccountCoordinator {
+    func filledAccount() -> Account
+    func fill(_ account: Account)
+    func refreshAccountUI()
 }
 

@@ -8,7 +8,29 @@
 
 import UIKit
 
-final class SignUpIntroductionViewController: UIViewController {
+final class SignUpIntroductionViewController: UIViewController, AccountCoordinator {
+    
+    // MARK: Responding to View Events
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "1/3"
+    }
+    
+    
+    // MARK: Account Coordination
+    
+    private var account = Account()
+    
+    func filledAccount() -> Account {
+        return account
+    }
+    
+    func fill(_ account: Account) {
+        self.account = account
+    }
+    
+    func refreshAccountUI() {}
 }
 
 extension SignUpIntroductionViewController: Navigatable {
