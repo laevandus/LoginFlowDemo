@@ -307,9 +307,14 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bgE-nl-ojW">
+                                        <rect key="frame" x="177" y="498.5" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="bgE-nl-ojW" firstAttribute="centerX" secondItem="hVN-Lb-VT1" secondAttribute="centerX" id="8a8-4P-aSi"/>
                                     <constraint firstItem="hVN-Lb-VT1" firstAttribute="leading" secondItem="OuR-Zh-IW7" secondAttribute="leading" constant="20" id="M2q-jI-DeT"/>
+                                    <constraint firstItem="bgE-nl-ojW" firstAttribute="top" secondItem="hVN-Lb-VT1" secondAttribute="bottom" constant="8" symbolic="YES" id="e3i-6f-0H9"/>
                                     <constraint firstAttribute="trailing" secondItem="hVN-Lb-VT1" secondAttribute="trailing" constant="20" id="iua-2A-UaH"/>
                                     <constraint firstItem="hVN-Lb-VT1" firstAttribute="centerY" secondItem="OuR-Zh-IW7" secondAttribute="centerY" id="z4b-fN-pR5"/>
                                 </constraints>
@@ -325,18 +330,48 @@
                         <viewLayoutGuide key="safeArea" id="WtA-qb-wra"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="bgE-nl-ojW" id="EyG-aD-Et3"/>
                         <outlet property="cityTextField" destination="pbJ-di-DuO" id="SMU-QU-Mzs"/>
                         <outlet property="containerBottomConstraint" destination="Dia-vv-qSc" id="e6c-bb-Oxq"/>
                         <outlet property="countriesController" destination="jSI-Xk-fIc" id="b8f-Uo-LQZ"/>
                         <outlet property="postalIndexTextField" destination="FPV-Zv-dVW" id="SHp-Tw-l2d"/>
                         <outlet property="registerButton" destination="jd1-yR-7xn" id="hCr-kx-qmO"/>
                         <outlet property="stackView" destination="hVN-Lb-VT1" id="VW5-9O-wZr"/>
+                        <segue destination="HnL-GO-ae5" kind="show" identifier="success" id="Fdu-Z5-qCW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="59N-QF-qOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="jSI-Xk-fIc" customClass="CountriesDataSource" customModule="LoginFlowDemo" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="2570" y="873"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vFz-hp-mFU">
+            <objects>
+                <viewController id="HnL-GO-ae5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wk7-J9-iPG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The account was created successfully!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQ3-iJ-bXe">
+                                <rect key="frame" x="20" y="295.5" width="335" height="76.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.21960784310000001" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.95867034309999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qQ3-iJ-bXe" firstAttribute="leading" secondItem="ED7-ZK-bxg" secondAttribute="leading" constant="20" id="Net-dX-ubQ"/>
+                            <constraint firstItem="qQ3-iJ-bXe" firstAttribute="centerY" secondItem="wk7-J9-iPG" secondAttribute="centerY" id="Rsk-lV-4TF"/>
+                            <constraint firstItem="ED7-ZK-bxg" firstAttribute="trailing" secondItem="qQ3-iJ-bXe" secondAttribute="trailing" constant="20" id="pZf-jG-PAz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ED7-ZK-bxg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xzR-nu-jUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3334" y="877"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="jLh-2T-YVJ">
@@ -417,10 +452,10 @@
             </objects>
             <point key="canvasLocation" x="1097" y="-129"/>
         </scene>
-        <!--View Controller-->
+        <!--Success-->
         <scene sceneID="vNv-Rj-tSQ">
             <objects>
-                <viewController id="wEl-4r-ZUS" sceneMemberID="viewController">
+                <viewController id="wEl-4r-ZUS" userLabel="Success" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9ew-KS-HKL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -443,7 +478,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="meb-44-eLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2164" y="-129"/>
+            <point key="canvasLocation" x="1846" y="-129"/>
         </scene>
     </scenes>
 </document>

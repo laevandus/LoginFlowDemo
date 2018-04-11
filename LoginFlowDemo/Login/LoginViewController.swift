@@ -81,7 +81,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
         activityIndicator.startAnimating()
         
         let credentials = AccountCredentials(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
-        let resource = Resource<AccountCredentials>(content: credentials, path: "/login/")
+        let resource = Resource<AccountCredentials>(content: credentials, path: "/login")
         webClient?.load(resource, completionHandler: { [weak self] (response, error) in
             print("Logging in finished with response \(String(describing: response)) and error \(String(describing: error)).")
             guard let closureSelf = self else { return }
@@ -89,7 +89,10 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
             controls.forEach({ $0.isEnabled = true })
             closureSelf.activityIndicator.stopAnimating()
             
-            if error != nil {
+            switch error {
+            case .noError:
+                closureSelf.performSegue(withIdentifier: "success", sender: self)
+            case .invalidResponse:
                 let alert: UIAlertController = {
                     let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
                     let suggestion = NSLocalizedString("LoggingIn_FailedAlert_Suggestion", comment: "Alert suggestion when logging in failed.")
@@ -99,9 +102,6 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
                     return alert
                 }()
                 closureSelf.present(alert, animated: true, completion: nil)
-            }
-            else {
-                closureSelf.performSegue(withIdentifier: "success", sender: self)
             }
         })
     }

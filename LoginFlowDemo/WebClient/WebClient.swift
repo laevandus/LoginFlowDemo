@@ -16,7 +16,7 @@ final class WebClient {
         self.baseURL = baseURL
     }
     
-    @discardableResult func load<T>(_ resource: Resource<T>, completionHandler: @escaping (String?, Error?) -> Void) -> URLSessionDataTask {
+    @discardableResult func load<T>(_ resource: Resource<T>, completionHandler: @escaping (String, WebClientError) -> Void) -> URLSessionDataTask {
         var request = URLRequest(url: baseURL.appendingPathComponent(resource.path))
         request.addValue("LoginFlowDemo", forHTTPHeaderField: "User-Agent")
         request.httpMethod = resource.method.rawValue
@@ -33,29 +33,22 @@ final class WebClient {
             }
         }
         
-        let task = session.dataTask(with: request) { (data, urlResponse, error) in
-            if let error = error {
-                completionHandler(nil, error)
-                return
-            }
-            
+        let task = session.dataTask(with: request) { (data, urlResponse, _) in
             guard let response = urlResponse as? HTTPURLResponse else {
-                // TODO: needs custom error
-                completionHandler(nil, nil)
+                completionHandler("", .invalidResponse)
                 return
             }
             
-            guard response.statusCode == 200 else {
-                print("Request failed with status code \(response.statusCode).")
-                completionHandler(nil, error)
-                return
-            }
+            let responseContent: String = {
+                guard let data = data else { return "" }
+                return String(data: data, encoding: .utf8) ?? ""
+            }()
             
-            if let data = data, let string = String(data: data, encoding: .utf8) {
-                completionHandler(string, error)
+            if response.statusCode == 200 {
+                completionHandler(responseContent, .noError)
             }
             else {
-                completionHandler(nil, error)
+                completionHandler(responseContent, .invalidResponse)
             }
         }
         task.resume()
@@ -69,6 +62,11 @@ final class WebClient {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: nil, delegateQueue: .main)
     }()
+}
+
+enum WebClientError: Error {
+    case noError
+    case invalidResponse
 }
 
 protocol Networking: class {

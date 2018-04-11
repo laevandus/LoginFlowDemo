@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SignUpAddressViewController: UIViewController {
+final class SignUpAddressViewController: UIViewController, Networking {
 
     // MARK: Responding to View Events
     
@@ -20,7 +20,6 @@ final class SignUpAddressViewController: UIViewController {
             stackView.setCustomSpacing(0, after: first)
         }
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -84,8 +83,44 @@ final class SignUpAddressViewController: UIViewController {
         registerButton.backgroundColor = canContinue ? UIColor.coolGreen : UIColor.lightGray
     }
     
+    
+    // MARK: Registering Account
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var webClient: WebClient? = nil
+    
     @IBAction func register(_ sender: Any) {
         print("Perform registration.")
+        
+        view.window?.endEditing(true)
+        let controls = stackView.arrangedSubviews.compactMap({ $0 as? UIControl })
+        controls.forEach({ $0.isEnabled = false })
+        activityIndicator.startAnimating()
+        
+        let account = Account(email: "test@toomas.ee", password: "jeejee", country: "EE", city: cityTextField.text ?? "", postalCode: postalIndexTextField.text ?? "")
+        let resource = Resource<Account>(content: account, path: "/addUser")
+        webClient?.load(resource, completionHandler: { [weak self] (response, error) in
+            print("Registering new account finished with response \(String(describing: response)) and error \(String(describing: error)).")
+            guard let closureSelf = self else { return }
+            
+            controls.forEach({ $0.isEnabled = true })
+            closureSelf.activityIndicator.stopAnimating()
+            
+            switch error {
+            case .noError:
+                closureSelf.performSegue(withIdentifier: "success", sender: self)
+            case .invalidResponse:
+                let alert: UIAlertController = {
+                    let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
+                    let suggestion = NSLocalizedString("Register_FailedAlert_Suggestion", comment: "Alert suggestion when registering a new account failed.")
+                    let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                    let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                    return alert
+                }()
+                closureSelf.present(alert, animated: true, completion: nil)
+            }
+        })
     }
 }
 

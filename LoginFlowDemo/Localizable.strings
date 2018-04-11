@@ -10,3 +10,7 @@
 LoggingIn_FailedAlert_Title = "Failed logging in.";
 LoggingIn_FailedAlert_Suggestion = "Please check your credentials and try again.";
 LoggingIn_FailedAlert_ButtonTitle = "OK";
+
+Register_FailedAlert_Title = "Failed to register an account.";
+Register_FailedAlert_Suggestion = "Please try again.";
+Register_FailedAlert_ButtonTitle = "OK";
