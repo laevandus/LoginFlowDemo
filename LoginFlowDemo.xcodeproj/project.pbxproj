@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C80198F9207DC05D00546E1D /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80198F8207DC05D00546E1D /* Resource.swift */; };
 		C80198FB207DCF7400546E1D /* AccountCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80198FA207DCF7400546E1D /* AccountCredentials.swift */; };
+		C80198FD207DE60E00546E1D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C80198FC207DE60E00546E1D /* Localizable.strings */; };
 		C81F15C2207CA13C00419E79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F15C1207CA13C00419E79 /* AppDelegate.swift */; };
 		C81F15C7207CA13C00419E79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C81F15C5207CA13C00419E79 /* Main.storyboard */; };
 		C81F15C9207CA13D00419E79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C81F15C8207CA13D00419E79 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		C80198F8207DC05D00546E1D /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		C80198FA207DCF7400546E1D /* AccountCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCredentials.swift; sourceTree = "<group>"; };
+		C80198FC207DE60E00546E1D /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		C81F15BE207CA13C00419E79 /* LoginFlowDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginFlowDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81F15C1207CA13C00419E79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C81F15C6207CA13C00419E79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */,
 				C81F15C5207CA13C00419E79 /* Main.storyboard */,
 				C81F15C8207CA13D00419E79 /* Assets.xcassets */,
+				C80198FC207DE60E00546E1D /* Localizable.strings */,
 				C81F15F6207CB43800419E79 /* Additions */,
 				C81F15F1207CA4E700419E79 /* Login */,
 				C81F15F9207CB64D00419E79 /* SignUp */,
@@ -303,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C81F15CC207CA13D00419E79 /* LaunchScreen.storyboard in Resources */,
+				C80198FD207DE60E00546E1D /* Localizable.strings in Resources */,
 				C81F15C9207CA13D00419E79 /* Assets.xcassets in Resources */,
 				C81F15C7207CA13C00419E79 /* Main.storyboard in Resources */,
 			);

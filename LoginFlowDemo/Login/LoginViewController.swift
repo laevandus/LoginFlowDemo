@@ -70,13 +70,39 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func login(_ sender: Any) {
         print("Perform logging with email \(String(describing: emailTextField.text)).")
-        let credentials = AccountCredentials(email: "x@y.z", password: "abc")
+        
+        view.window?.endEditing(true)
+        let controls = [UIControl](arrayLiteral: emailTextField, passwordTextField, loginButton)
+        controls.forEach({ $0.isEnabled = false })
+        activityIndicator.startAnimating()
+        
+        let credentials = AccountCredentials(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
         let resource = Resource<AccountCredentials>(content: credentials, path: "/login/")
-        webClient?.load(resource, completionHandler: { (response, error) in
+        webClient?.load(resource, completionHandler: { [weak self] (response, error) in
             print("Logging in finished with response \(String(describing: response)) and error \(String(describing: error)).")
+            guard let closureSelf = self else { return }
+            
+            controls.forEach({ $0.isEnabled = true })
+            closureSelf.activityIndicator.stopAnimating()
+            
+            if error != nil {
+                let alert: UIAlertController = {
+                    let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
+                    let suggestion = NSLocalizedString("LoggingIn_FailedAlert_Suggestion", comment: "Alert suggestion when logging in failed.")
+                    let buttonTitle = NSLocalizedString("LoggingIn_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                    let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                    return alert
+                }()
+                closureSelf.present(alert, animated: true, completion: nil)
+            }
+            else {
+                closureSelf.performSegue(withIdentifier: "success", sender: self)
+            }
         })
     }
     

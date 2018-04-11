@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  LoginFlowDemo
+
+  Created by Toomas Vahter on 11/04/2018.
+  Copyright © 2018 Toomas Vahter. All rights reserved.
+*/
+
+
+LoggingIn_FailedAlert_Title = "Failed logging in.";
+LoggingIn_FailedAlert_Suggestion = "Please check your credentials and try again.";
+LoggingIn_FailedAlert_ButtonTitle = "OK";
