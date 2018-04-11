@@ -48,7 +48,17 @@ final class WebClient {
                 completionHandler(responseContent, .noError)
             }
             else {
-                completionHandler(responseContent, .invalidResponse)
+                let responseError: ErrorPayload? = {
+                    guard let data = data else { return nil }
+                    let decoded = try? JSONDecoder().decode(ErrorPayload.self, from: data)
+                    return decoded
+                }()
+                if let responseError = responseError {
+                    completionHandler(responseContent, .custom(responseError.customError))
+                }
+                else {
+                    completionHandler(responseContent, .invalidResponse)
+                }
             }
         }
         task.resume()
@@ -67,6 +77,23 @@ final class WebClient {
 enum WebClientError: Error {
     case noError
     case invalidResponse
+    case custom(ErrorPayload.Custom)
+}
+
+struct ErrorPayload: Codable {
+    let error: String
+}
+
+extension ErrorPayload {
+    enum Custom: String, Decodable {
+        case invalidCredentials = "err.wrong.credentials"
+        case timeout = "err.timeout"
+        case unknown = "err.unknown"
+    }
+    var customError: Custom {
+        guard let customError = Custom(rawValue: error) else { return .unknown }
+        return customError
+    }
 }
 
 protocol Networking: class {

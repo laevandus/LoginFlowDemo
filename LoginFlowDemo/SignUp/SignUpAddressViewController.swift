@@ -119,6 +119,15 @@ final class SignUpAddressViewController: UIViewController, Networking {
                     return alert
                 }()
                 closureSelf.present(alert, animated: true, completion: nil)
+            case .custom(let customError):
+                switch customError {
+                case .invalidCredentials:
+                    break
+                case .timeout:
+                    break
+                case .unknown:
+                    break
+                }
             }
         })
     }
