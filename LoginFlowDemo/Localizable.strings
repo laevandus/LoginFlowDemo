@@ -7,9 +7,9 @@
 */
 
 
-LoggingIn_FailedAlert_Title = "Failed logging in.";
-LoggingIn_FailedAlert_GenericSuggestion = "Please try again.";
-LoggingIn_FailedAlert_CheckCredentialsSuggestion = "Please check your credentials and try again.";
+LoginFailureReason = "Failed logging in.";
+LoginFailureDescription_Generic = "Please try again.";
+LoginFailureDescription_InvalidCredentials = "Please check your credentials and try again.";
 
 RegistrationFailureReason = "Failed to register an account.";
 RegistrationFailureDescription_Generic = "Please try again.";

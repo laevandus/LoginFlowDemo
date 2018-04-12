@@ -73,63 +73,32 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func login(_ sender: Any) {
-        print("Perform logging with email \(String(describing: emailTextField.text)).")
-        
         view.window?.endEditing(true)
         let controls = [UIControl](arrayLiteral: emailTextField, passwordTextField, loginButton)
         controls.forEach({ $0.isEnabled = false })
         activityIndicator.startAnimating()
         
-        let credentials: AccountCredentials = {
+        let credentials: LoginCredentials = {
             let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            return AccountCredentials(email: email, password: password)
+            return LoginCredentials(email: email, password: password)
         }()
-        let resource = Resource<AccountCredentials>(content: credentials, path: "/login")
-        webClient?.load(resource, completionHandler: { [weak self] (response, error) in
-            print("Logging in finished with response \(String(describing: response)) and error \(String(describing: error)).")
+        webClient?.loginService.login(with: credentials, completionHandler: { [weak self] (error) in
             guard let closureSelf = self else { return }
-            
             controls.forEach({ $0.isEnabled = true })
             closureSelf.activityIndicator.stopAnimating()
             
-            switch error {
-            case .noError:
+            guard let error = error else {
                 closureSelf.performSegue(withIdentifier: "success", sender: closureSelf)
-            case .invalidResponse:
-                let alert: UIAlertController = {
-                    let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
-                    let suggestion = NSLocalizedString("LoggingIn_FailedAlert_GenericSuggestion", comment: "Alert suggestion when logging in failed.")
-                    let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
-                    let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                    return alert
-                }()
-                closureSelf.present(alert, animated: true, completion: nil)
-            case .custom(let customError):
-                switch customError {
-                case .passwordTooShort, .invalidCredentials:
-                    let alert: UIAlertController = {
-                        let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
-                        let suggestion = NSLocalizedString("LoggingIn_FailedAlert_CheckCredentialsSuggestion", comment: "Alert suggestion when logging in failed with invalid credentials.")
-                        let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
-                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                        return alert
-                    }()
-                    closureSelf.present(alert, animated: true, completion: nil)
-                case .timeout, .unknown:
-                    let alert: UIAlertController = {
-                        let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
-                        let suggestion = NSLocalizedString("LoggingIn_FailedAlert_GenericSuggestion", comment: "Alert suggestion when logging in failed.")
-                        let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
-                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                        return alert
-                    }()
-                    closureSelf.present(alert, animated: true, completion: nil)
-                }
+                return
             }
+            let alert: UIAlertController = {
+                let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
+                let alert = UIAlertController(title: error.localizedFailureReason, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                return alert
+            }()
+            closureSelf.present(alert, animated: true, completion: nil)
         })
     }
     

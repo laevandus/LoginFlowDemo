@@ -76,6 +76,10 @@ final class WebClient {
     
     // MARK: Services
     
+    lazy var loginService: LoginService = {
+        return LoginService(client: self)
+    }()
+    
     lazy var registrationService: RegistrationService = {
         return RegistrationService(client: self)
     }()

@@ -1,5 +1,5 @@
 //
-//  AccountCredentials.swift
+//  LoginCredentials.swift
 //  LoginFlowDemo
 //
 //  Created by Toomas Vahter on 11/04/2018.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AccountCredentials: Codable {
+struct LoginCredentials: Codable {
     let email: String
     let password: String
 }
