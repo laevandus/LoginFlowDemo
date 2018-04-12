@@ -12,12 +12,6 @@ final class SignUpAccountViewController: UIViewController, AccountCoordinator {
 
     // MARK: Responding to View Events
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        checkBoxButton.setBackgroundImage(#imageLiteral(resourceName: "CheckBoxUnselected"), for: .normal)
-        validateInput()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         keyboardVisibilityObserver = {
@@ -40,6 +34,7 @@ final class SignUpAccountViewController: UIViewController, AccountCoordinator {
         }()
         textFieldObserver = NotificationCenter.default.addObserver(forName: .UITextFieldTextDidChange, object: nil, queue: .main, using: { [weak self] (notification) in
             self?.validateInput()
+            self?.updateTitle()
         })
         validateInput()
     }
@@ -89,13 +84,14 @@ final class SignUpAccountViewController: UIViewController, AccountCoordinator {
         }()
         nextButton.isEnabled = canContinue
         nextButton.backgroundColor = canContinue ? UIColor.coolGreen : UIColor.lightGray
-        
-        if let email = emailTextField.text {
-            title = "2/3 " + email.prefix(5)
-        }
-        else {
-            title = "2/3"
-        }
+    }
+    
+    private func updateTitle() {
+        title = {
+            let format = NSLocalizedString("RegistrationStepFormat", comment: "Title for registration view.")
+            let email = emailTextField.text ?? ""
+            return String(format: format, 2, 3, String(email.prefix(5))).trimmingCharacters(in: .whitespaces)
+        }()
     }
     
     
@@ -120,6 +116,7 @@ final class SignUpAccountViewController: UIViewController, AccountCoordinator {
         checkBoxButton.setBackgroundImage(checkBoxButton.isSelected ? #imageLiteral(resourceName: "CheckBoxSelected") : #imageLiteral(resourceName: "CheckBoxUnselected") , for: .normal)
         emailTextField.text = account.email
         passwordTextField.text = account.password
+        updateTitle()
     }
 }
 

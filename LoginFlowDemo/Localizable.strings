@@ -16,3 +16,5 @@ RegistrationFailureDescription_Generic = "Please try again.";
 RegistrationFailureDescription_InvalidCredentials = "Please check your credentials and try again.";
 RegistrationFailureDescription_TooShortPassword = "Please enter longer password and try again.";
 ButtonTitle_OK = "OK";
+
+RegistrationStepFormat = "%1$u/%2$u %3$@";

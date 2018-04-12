@@ -15,16 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let dependencies = Dependencies()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        dependencies.navigationHandler.willNavigate = { [weak self] viewController in
+        guard let navigationController = window?.rootViewController as? UINavigationController else {
+            fatalError("Initial view controller is not navigation controller.")
+        }
+        navigationController.delegate = dependencies.navigationHandler
+        
+        dependencies.navigationHandler.willNavigateHandler = { [weak self] viewController in
             if let networking = viewController as? Networking {
                 networking.webClient = self?.dependencies.webClient
             }
         }
         
-        guard let navigationController = window?.rootViewController as? UINavigationController else {
-            fatalError("Initial view controller is not navigation controller.")
-        }
-        navigationController.delegate = dependencies.navigationHandler
         return true
     }
 }

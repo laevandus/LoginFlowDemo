@@ -29,7 +29,7 @@ extension Resource where T: Encodable {
         self.body = {
             let encoder = JSONEncoder()
             let data = try! encoder.encode(content)
-            return String(data: data, encoding: .utf8)!
+            return String(data: data, encoding: .utf8) ?? ""
         }()
     }
 }

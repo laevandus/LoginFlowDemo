@@ -23,6 +23,7 @@ final class CountriesController: NSObject, UIPickerViewDataSource, UIPickerViewD
         super.init()
         pickerView.dataSource = self
         pickerView.delegate = self
+        pickerView.selectRow(index(ofCountry: Locale.current.regionCode ?? ""), inComponent: 0, animated: false)
     }
     
     var selectedCountryCode: String {
@@ -38,6 +39,9 @@ final class CountriesController: NSObject, UIPickerViewDataSource, UIPickerViewD
         return countries.index(where: { $0.0.lowercased() == country.lowercased() }) ?? 0
     }
     
+    
+    // MARK: Picker View Data Source
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -45,6 +49,9 @@ final class CountriesController: NSObject, UIPickerViewDataSource, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return countries.count
     }
+    
+    
+    // MARK: Picker View Delegate
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return countries[row].1

@@ -14,7 +14,10 @@ final class SignUpIntroductionViewController: UIViewController, AccountCoordinat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "1/3"
+        title = {
+            let format = NSLocalizedString("RegistrationStepFormat", comment: "Title for registration view.")
+            return String(format: format, 1, 3, "").trimmingCharacters(in: .whitespaces)
+        }()
     }
     
     

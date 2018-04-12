@@ -32,7 +32,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
             }
             return observer
         }()
-        textFieldObserver = NotificationCenter.default.addObserver(forName: .UITextFieldTextDidChange, object: nil, queue: .main, using: { [weak self] (notification) in
+        textFieldObserver = NotificationCenter.default.addObserver(forName: .UITextFieldTextDidChange, object: nil, queue: .main, using: { [weak self] (_) in
             self?.validateInput()
         })
         validateInput()
@@ -92,6 +92,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
                 closureSelf.performSegue(withIdentifier: "success", sender: closureSelf)
                 return
             }
+            
             let alert: UIAlertController = {
                 let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
                 let alert = UIAlertController(title: error.localizedFailureReason, message: error.localizedDescription, preferredStyle: .alert)

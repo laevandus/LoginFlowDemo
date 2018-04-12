@@ -114,6 +114,10 @@ final class SignUpAddressViewController: UIViewController, Networking, AccountCo
         pickerView.selectRow(countriesController?.index(ofCountry: countryCode) ?? 0, inComponent: 0, animated: false)
         cityTextField.text = account.city
         postalIndexTextField.text = account.postalCode
+        title = {
+            let format = NSLocalizedString("RegistrationStepFormat", comment: "Title for registration view.")
+            return String(format: format, 3, 3, String(account.email.prefix(5))).trimmingCharacters(in: .whitespaces)
+        }()
     }
 }
 

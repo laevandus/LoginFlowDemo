@@ -16,6 +16,10 @@ final class WebClient {
         self.baseURL = baseURL
     }
     
+    private lazy var session: URLSession = {
+        return URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: .main)
+    }()
+    
     @discardableResult func load<T>(_ resource: Resource<T>, completionHandler: @escaping (String, WebClientError) -> Void) -> URLSessionDataTask {
         var request = URLRequest(url: baseURL.appendingPathComponent(resource.path))
         request.addValue("LoginFlowDemo", forHTTPHeaderField: "User-Agent")
@@ -25,7 +29,8 @@ final class WebClient {
         }
         
         switch resource.method {
-        case .get: break
+        case .get:
+            break
         case .post:
             if let bodyData = resource.body.data(using: .utf8), bodyData.count > 0 {
                 request.httpBody = bodyData
@@ -64,14 +69,6 @@ final class WebClient {
         task.resume()
         return task
     }
-
-    
-    // MARK: URL Session
-    
-    private lazy var session: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        return URLSession(configuration: configuration, delegate: nil, delegateQueue: .main)
-    }()
     
     
     // MARK: Services
