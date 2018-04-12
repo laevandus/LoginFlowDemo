@@ -17,7 +17,10 @@ final class NavigationHandler: NSObject, UINavigationControllerDelegate {
         else {
             navigationController.isNavigationBarHidden = true
         }
+        
         (viewController as? AccountCoordinator)?.refreshAccountUI()
+        (viewController as? SignUpFlow)?.updateTitle()
+        
         willNavigateHandler?(viewController)
     }
     
@@ -42,4 +45,19 @@ protocol AccountCoordinator {
     func filledAccount() -> Account
     func fill(_ account: Account)
     func refreshAccountUI()
+}
+
+protocol SignUpFlow {
+    var controller: UIViewController { get }
+    var signUpStep: Int { get }
+    var titleText: String { get }
+}
+
+extension SignUpFlow {
+    func updateTitle() {
+        controller.title = {
+            let format = NSLocalizedString("RegistrationStepFormat", comment: "Title for registration view.")
+            return String(format: format, signUpStep, 3, String(titleText.prefix(5))).trimmingCharacters(in: .whitespaces)
+        }()
+    }
 }

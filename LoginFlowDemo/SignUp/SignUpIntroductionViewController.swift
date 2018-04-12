@@ -10,17 +10,6 @@ import UIKit
 
 final class SignUpIntroductionViewController: UIViewController, AccountCoordinator {
     
-    // MARK: Responding to View Events
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = {
-            let format = NSLocalizedString("RegistrationStepFormat", comment: "Title for registration view.")
-            return String(format: format, 1, 3, "").trimmingCharacters(in: .whitespaces)
-        }()
-    }
-    
-    
     // MARK: Account Coordination
     
     private var account = Account()
@@ -40,4 +29,10 @@ extension SignUpIntroductionViewController: Navigatable {
     var needsNavigationBar: Bool {
         return true
     }
+}
+
+extension SignUpIntroductionViewController: SignUpFlow {
+    var controller: UIViewController { return self }
+    var signUpStep: Int { return 1 }
+    var titleText: String { return "" }
 }

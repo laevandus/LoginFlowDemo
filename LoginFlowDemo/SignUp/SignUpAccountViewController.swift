@@ -86,14 +86,6 @@ final class SignUpAccountViewController: UIViewController, AccountCoordinator {
         nextButton.backgroundColor = canContinue ? UIColor.coolGreen : UIColor.lightGray
     }
     
-    private func updateTitle() {
-        title = {
-            let format = NSLocalizedString("RegistrationStepFormat", comment: "Title for registration view.")
-            let email = emailTextField.text ?? ""
-            return String(format: format, 2, 3, String(email.prefix(5))).trimmingCharacters(in: .whitespaces)
-        }()
-    }
-    
     
     // MARK: Account Coordination
     
@@ -116,7 +108,6 @@ final class SignUpAccountViewController: UIViewController, AccountCoordinator {
         checkBoxButton.setBackgroundImage(checkBoxButton.isSelected ? #imageLiteral(resourceName: "CheckBoxSelected") : #imageLiteral(resourceName: "CheckBoxUnselected") , for: .normal)
         emailTextField.text = account.email
         passwordTextField.text = account.password
-        updateTitle()
     }
 }
 
@@ -124,4 +115,10 @@ extension SignUpAccountViewController: Navigatable {
     var needsNavigationBar: Bool {
         return true
     }
+}
+
+extension SignUpAccountViewController: SignUpFlow {
+    var controller: UIViewController { return self }
+    var signUpStep: Int { return 2 }
+    var titleText: String { return emailTextField.text ?? "" }
 }
