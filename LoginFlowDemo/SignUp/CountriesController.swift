@@ -23,7 +23,6 @@ final class CountriesController: NSObject, UIPickerViewDataSource, UIPickerViewD
         super.init()
         pickerView.dataSource = self
         pickerView.delegate = self
-        pickerView.selectRow(index(ofCountry: Locale.current.regionCode ?? ""), inComponent: 0, animated: false)
     }
     
     var selectedCountryCode: String {

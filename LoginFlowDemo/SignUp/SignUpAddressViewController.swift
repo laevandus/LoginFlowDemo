@@ -15,7 +15,6 @@ final class SignUpAddressViewController: UIViewController, Networking, AccountCo
     override func loadView() {
         super.loadView()
         countriesController = CountriesController(pickerView: pickerView)
-        pickerView.reloadAllComponents()
         // Reduce space around picker.
         if let first = stackView.arrangedSubviews.first {
             stackView.setCustomSpacing(0, after: first)
@@ -110,8 +109,11 @@ final class SignUpAddressViewController: UIViewController, Networking, AccountCo
     }
     
     func refreshAccountUI() {
-        let countryCode = account.country
-        pickerView.selectRow(countriesController?.index(ofCountry: countryCode) ?? 0, inComponent: 0, animated: false)
+        let countryIndex: Int = {
+            let countryCode = account.country.isEmpty ? Locale.current.regionCode ?? "" : account.country
+            return countriesController?.index(ofCountry: countryCode) ?? 0
+        }()
+        pickerView.selectRow(countryIndex, inComponent: 0, animated: false)
         cityTextField.text = account.city
         postalIndexTextField.text = account.postalCode
     }
