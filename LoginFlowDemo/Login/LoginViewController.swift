@@ -100,7 +100,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
                 let alert: UIAlertController = {
                     let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
                     let suggestion = NSLocalizedString("LoggingIn_FailedAlert_GenericSuggestion", comment: "Alert suggestion when logging in failed.")
-                    let buttonTitle = NSLocalizedString("LoggingIn_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                    let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
                     let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
                     return alert
@@ -112,7 +112,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
                     let alert: UIAlertController = {
                         let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
                         let suggestion = NSLocalizedString("LoggingIn_FailedAlert_CheckCredentialsSuggestion", comment: "Alert suggestion when logging in failed with invalid credentials.")
-                        let buttonTitle = NSLocalizedString("LoggingIn_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                        let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
                         let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
                         return alert
@@ -122,7 +122,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
                     let alert: UIAlertController = {
                         let title = NSLocalizedString("LoggingIn_FailedAlert_Title", comment: "Alert title when logging in failed.")
                         let suggestion = NSLocalizedString("LoggingIn_FailedAlert_GenericSuggestion", comment: "Alert suggestion when logging in failed.")
-                        let buttonTitle = NSLocalizedString("LoggingIn_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
+                        let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
                         let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
                         return alert

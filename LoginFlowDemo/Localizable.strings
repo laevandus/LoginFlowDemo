@@ -10,10 +10,9 @@
 LoggingIn_FailedAlert_Title = "Failed logging in.";
 LoggingIn_FailedAlert_GenericSuggestion = "Please try again.";
 LoggingIn_FailedAlert_CheckCredentialsSuggestion = "Please check your credentials and try again.";
-LoggingIn_FailedAlert_ButtonTitle = "OK";
 
-Register_FailedAlert_Title = "Failed to register an account.";
-Register_FailedAlert_GenericSuggestion = "Please try again.";
-Register_FailedAlert_CheckCredentialsSuggestion = "Please check your credentials and try again.";
-Register_FailedAlert_PasswordShortSuggestion = "Please enter longer password and try again.";
-Register_FailedAlert_ButtonTitle = "OK";
+RegistrationFailureReason = "Failed to register an account.";
+RegistrationFailureDescription_Generic = "Please try again.";
+RegistrationFailureDescription_InvalidCredentials = "Please check your credentials and try again.";
+RegistrationFailureDescription_TooShortPassword = "Please enter longer password and try again.";
+ButtonTitle_OK = "OK";

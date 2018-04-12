@@ -72,6 +72,13 @@ final class WebClient {
         let configuration = URLSessionConfiguration.default
         return URLSession(configuration: configuration, delegate: nil, delegateQueue: .main)
     }()
+    
+    
+    // MARK: Services
+    
+    lazy var registrationService: RegistrationService = {
+        return RegistrationService(client: self)
+    }()
 }
 
 enum WebClientError: Error {

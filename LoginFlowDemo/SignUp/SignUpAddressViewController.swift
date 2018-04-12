@@ -73,63 +73,22 @@ final class SignUpAddressViewController: UIViewController, Networking, AccountCo
         let controls = stackView.arrangedSubviews.compactMap({ $0 as? UIControl })
         controls.forEach({ $0.isEnabled = false })
         activityIndicator.startAnimating()
-        let account = filledAccount()
-        let resource = Resource<Account>(content: account, path: "/addUser")
-        webClient?.load(resource, completionHandler: { [weak self] (response, error) in
+        webClient?.registrationService.register(filledAccount(), completionHandler: { [weak self] (error) in
             guard let closureSelf = self else { return }
-            
             controls.forEach({ $0.isEnabled = true })
             closureSelf.activityIndicator.stopAnimating()
   
-            switch error {
-            case .noError:
+            guard let error = error else {
                 closureSelf.performSegue(withIdentifier: "success", sender: self)
-            case .invalidResponse:
-                let alert: UIAlertController = {
-                    let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
-                    let suggestion = NSLocalizedString("Register_FailedAlert_GenericSuggestion", comment: "Alert suggestion when registering a new account failed.")
-                    let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
-                    let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                    return alert
-                }()
-                closureSelf.present(alert, animated: true, completion: nil)
-            case .custom(let customError):
-                switch customError {
-                case .invalidCredentials:
-                    let alert: UIAlertController = {
-                        let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
-                        let suggestion = NSLocalizedString("Register_FailedAlert_CheckCredentialsSuggestion", comment: "Alert suggestion when registering a new account failed as credentials are invalid.")
-                        let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
-                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                        return alert
-                    }()
-                    closureSelf.present(alert, animated: true, completion: nil)
-                case .timeout:
-                    break
-                case .passwordTooShort:
-                    let alert: UIAlertController = {
-                        let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
-                        let suggestion = NSLocalizedString("Register_FailedAlert_PasswordShortSuggestion", comment: "Alert suggestion when registering new account failed.")
-                        let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
-                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                        return alert
-                    }()
-                    closureSelf.present(alert, animated: true, completion: nil)
-                case .unknown:
-                    let alert: UIAlertController = {
-                        let title = NSLocalizedString("Register_FailedAlert_Title", comment: "Alert title when registering a new account failed.")
-                        let suggestion = NSLocalizedString("Register_FailedAlert_GenericSuggestion", comment: "Alert suggestion when registering a new account failed.")
-                        let buttonTitle = NSLocalizedString("Register_FailedAlert_ButtonTitle", comment: "Button title for dismissing an alert.")
-                        let alert = UIAlertController(title: title, message: suggestion, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
-                        return alert
-                    }()
-                    closureSelf.present(alert, animated: true, completion: nil)
-                }
+                return
             }
+            let alert: UIAlertController = {
+                let buttonTitle = NSLocalizedString("ButtonTitle_OK", comment: "Button title for dismissing an alert.")
+                let alert = UIAlertController(title: error.localizedFailureReason, message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+                return alert
+            }()
+            closureSelf.present(alert, animated: true, completion: nil)
         })
     }
     
