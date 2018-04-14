@@ -20,7 +20,7 @@ final class WebClient {
         return URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: .main)
     }()
     
-    @discardableResult func load<T>(_ resource: Resource<T>, completionHandler: @escaping (String, WebClientError) -> Void) -> URLSessionDataTask {
+    @discardableResult func load<T>(_ resource: Resource<T>, completionHandler: @escaping (Data?, WebClientError) -> Void) -> URLSessionDataTask {
         var request = URLRequest(url: baseURL.appendingPathComponent(resource.path))
         request.addValue("LoginFlowDemo", forHTTPHeaderField: "User-Agent")
         request.httpMethod = resource.method.rawValue
@@ -40,17 +40,11 @@ final class WebClient {
         
         let task = session.dataTask(with: request) { (data, urlResponse, _) in
             guard let response = urlResponse as? HTTPURLResponse else {
-                completionHandler("", .invalidResponse)
+                completionHandler(nil, .invalidResponse)
                 return
             }
-            
-            let responseContent: String = {
-                guard let data = data else { return "" }
-                return String(data: data, encoding: .utf8) ?? ""
-            }()
-            
             if response.statusCode == 200 {
-                completionHandler(responseContent, .noError)
+                completionHandler(data, .noError)
             }
             else {
                 let responseError: ErrorPayload? = {
@@ -59,10 +53,10 @@ final class WebClient {
                     return decoded
                 }()
                 if let responseError = responseError {
-                    completionHandler(responseContent, .custom(responseError.customError))
+                    completionHandler(data, .custom(responseError.customError))
                 }
                 else {
-                    completionHandler(responseContent, .invalidResponse)
+                    completionHandler(data, .invalidResponse)
                 }
             }
         }
