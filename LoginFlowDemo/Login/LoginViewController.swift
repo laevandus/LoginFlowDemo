@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController, UITextFieldDelegate, AccountLogging {
+final class LoginViewController: UIViewController, UITextFieldDelegate, AccountLogging, ScenePresentation {
 
     // MARK: Responding to View Events
     
@@ -72,6 +72,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, AccountL
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var loginService: LoginService? = nil
+    weak var presenter: ScenePresenter? = nil
     
     @IBAction func login(_ sender: Any) {
         guard let loginService = loginService else { fatalError() }
@@ -91,7 +92,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, AccountL
             closureSelf.activityIndicator.stopAnimating()
             
             guard let error = error else {
-                closureSelf.performSegue(withIdentifier: "success", sender: closureSelf)
+                closureSelf.presenter?.presentAccountView()
                 return
             }
             

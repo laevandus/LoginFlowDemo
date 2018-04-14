@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SignUpAddressViewController: UIViewController, AccountCoordinator, AccountRegistration {
+final class SignUpAddressViewController: UIViewController, AccountCoordinator, AccountRegistration, ScenePresentation {
 
     // MARK: Responding to View Events
     
@@ -66,6 +66,7 @@ final class SignUpAddressViewController: UIViewController, AccountCoordinator, A
     private var countriesController: CountriesController? = nil
     private var keyboardVisibilityObserver: KeyboardVisibilityHandler? = nil
     var registrationService: RegistrationService? = nil
+    weak var presenter: ScenePresenter? = nil
     
     @IBAction func register(_ sender: Any) {
         guard let registrationService = registrationService else { fatalError() }
@@ -79,7 +80,7 @@ final class SignUpAddressViewController: UIViewController, AccountCoordinator, A
             closureSelf.activityIndicator.stopAnimating()
   
             guard let error = error else {
-                closureSelf.performSegue(withIdentifier: "success", sender: self)
+                closureSelf.presenter?.presentAccountWelcome()
                 return
             }
             let alert: UIAlertController = {

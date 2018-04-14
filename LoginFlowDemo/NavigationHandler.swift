@@ -11,30 +11,16 @@ import UIKit
 final class NavigationHandler: NSObject, UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        if let navigatable = viewController as? Navigatable {
-            navigationController.isNavigationBarHidden = navigatable.needsNavigationBar ? false : true
-        }
-        else {
-            navigationController.isNavigationBarHidden = true
-        }
-        
-        (viewController as? AccountCoordinator)?.refreshAccountUI()
-        (viewController as? SignUpFlow)?.updateTitle()
-        
-        willNavigateHandler?(viewController)
+        navigationWillShowHandler?(viewController)
     }
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromViewController: UIViewController, to toViewController: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if let next = toViewController as? AccountCoordinator {
-            if let current = fromViewController as? AccountCoordinator {
-                next.fill(current.filledAccount())
-            }
-        }
-        
+        navigationPrepareHandler?(fromViewController, toViewController)
         return nil
     }
     
-    var willNavigateHandler: ((UIViewController) -> Void)? = nil
+    var navigationPrepareHandler: ((UIViewController, UIViewController) -> Void)? = nil
+    var navigationWillShowHandler: ((UIViewController) -> Void)? = nil
 }
 
 protocol Navigatable {

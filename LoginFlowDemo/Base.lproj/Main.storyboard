@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sfH-Os-I1W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,7 +14,7 @@
         <!--Navigation Controller-->
         <scene sceneID="zmw-lo-1ya">
             <objects>
-                <navigationController id="sfH-Os-I1W" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="welcome" id="sfH-Os-I1W" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SVZ-IT-idj">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -333,7 +333,6 @@
                         <outlet property="postalIndexTextField" destination="FPV-Zv-dVW" id="SHp-Tw-l2d"/>
                         <outlet property="registerButton" destination="jd1-yR-7xn" id="hCr-kx-qmO"/>
                         <outlet property="stackView" destination="hVN-Lb-VT1" id="VW5-9O-wZr"/>
-                        <segue destination="HnL-GO-ae5" kind="show" identifier="success" id="Fdu-Z5-qCW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="59N-QF-qOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -343,7 +342,7 @@
         <!--View Controller-->
         <scene sceneID="vFz-hp-mFU">
             <objects>
-                <viewController id="HnL-GO-ae5" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registrationSuccess" id="HnL-GO-ae5" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wk7-J9-iPG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -440,7 +439,6 @@
                         <outlet property="emailTextField" destination="eDJ-81-BKY" id="Y8p-me-jvV"/>
                         <outlet property="loginButton" destination="IkB-mf-hRX" id="qVH-bd-eYF"/>
                         <outlet property="passwordTextField" destination="KjP-IR-MST" id="8YQ-vG-LOn"/>
-                        <segue destination="wEl-4r-ZUS" kind="show" identifier="success" id="hA4-zL-es0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9P-Qb-Yqh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -450,7 +448,7 @@
         <!--Success-->
         <scene sceneID="vNv-Rj-tSQ">
             <objects>
-                <viewController id="wEl-4r-ZUS" userLabel="Success" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="accountView" id="wEl-4r-ZUS" userLabel="Success" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9ew-KS-HKL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -473,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="meb-44-eLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1846" y="-129"/>
+            <point key="canvasLocation" x="3334" y="-129"/>
         </scene>
     </scenes>
 </document>

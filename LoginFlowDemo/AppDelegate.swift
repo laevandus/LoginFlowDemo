@@ -10,33 +10,14 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-    private let dependencies = Dependencies()
+    
+    private var scenePresenter: ScenePresenter? = nil
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        guard let navigationController = window?.rootViewController as? UINavigationController else {
-            fatalError("Initial view controller is not navigation controller.")
-        }
-        navigationController.delegate = dependencies.navigationHandler
-        dependencies.navigationHandler.willNavigateHandler = { [weak self] viewController in
-            (viewController as? AccountLogging)?.loginService = self?.dependencies.loginService
-            (viewController as? AccountRegistration)?.registrationService = self?.dependencies.registrationService
-        }
-        
+        let window = UIWindow()
+        scenePresenter = ScenePresenter(window: window, store: DependencyStore())
+        scenePresenter?.presentWelcome()
+        window.makeKeyAndVisible()
         return true
     }
 }
-
-private struct Dependencies {
-    private let webClient = WebClient(baseURL: URL(string: "https://poco-test.herokuapp.com")!)
-    let navigationHandler = NavigationHandler()
-    let loginService: LoginService
-    let registrationService: RegistrationService
-    
-    init() {
-        loginService = LoginService(client: webClient)
-        registrationService = RegistrationService(client: webClient)
-    }
-}
-

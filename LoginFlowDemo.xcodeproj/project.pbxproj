@@ -26,6 +26,8 @@
 		C81F1601207CC48200419E79 /* KeyboardVisibilityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1600207CC48200419E79 /* KeyboardVisibilityHandler.swift */; };
 		C81F1604207CCA9700419E79 /* CountriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1603207CCA9700419E79 /* CountriesController.swift */; };
 		C81F1607207CD6B900419E79 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F1606207CD6B900419E79 /* WebClient.swift */; };
+		C8ED65BA20823E2A006516A4 /* ScenePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8ED65B920823E2A006516A4 /* ScenePresenter.swift */; };
+		C8ED65BC20824260006516A4 /* DependencyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8ED65BB20824260006516A4 /* DependencyStore.swift */; };
 		C8F3BBBB207F338E00629B63 /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F3BBBA207F338E00629B63 /* RegistrationService.swift */; };
 		C8F3BBBD207F414400629B63 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F3BBBC207F414400629B63 /* LoginService.swift */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		C81F1600207CC48200419E79 /* KeyboardVisibilityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardVisibilityHandler.swift; sourceTree = "<group>"; };
 		C81F1603207CCA9700419E79 /* CountriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesController.swift; sourceTree = "<group>"; };
 		C81F1606207CD6B900419E79 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
+		C8ED65B920823E2A006516A4 /* ScenePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePresenter.swift; sourceTree = "<group>"; };
+		C8ED65BB20824260006516A4 /* DependencyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyStore.swift; sourceTree = "<group>"; };
 		C8F3BBBA207F338E00629B63 /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
 		C8F3BBBC207F414400629B63 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,7 +130,9 @@
 			isa = PBXGroup;
 			children = (
 				C81F15C1207CA13C00419E79 /* AppDelegate.swift */,
+				C8ED65BB20824260006516A4 /* DependencyStore.swift */,
 				C81F15F2207CA6BB00419E79 /* NavigationHandler.swift */,
+				C8ED65B920823E2A006516A4 /* ScenePresenter.swift */,
 				C81F15C5207CA13C00419E79 /* Main.storyboard */,
 				C81F15C8207CA13D00419E79 /* Assets.xcassets */,
 				C80198FC207DE60E00546E1D /* Localizable.strings */,
@@ -349,7 +355,9 @@
 			files = (
 				C80198F9207DC05D00546E1D /* Resource.swift in Sources */,
 				C8F3BBBB207F338E00629B63 /* RegistrationService.swift in Sources */,
+				C8ED65BC20824260006516A4 /* DependencyStore.swift in Sources */,
 				C81F15FB207CB68F00419E79 /* SignUpIntroductionViewController.swift in Sources */,
+				C8ED65BA20823E2A006516A4 /* ScenePresenter.swift in Sources */,
 				C81F15F5207CA7B800419E79 /* LoginViewController.swift in Sources */,
 				C81F1601207CC48200419E79 /* KeyboardVisibilityHandler.swift in Sources */,
 				C81F15F3207CA6BB00419E79 /* NavigationHandler.swift in Sources */,
