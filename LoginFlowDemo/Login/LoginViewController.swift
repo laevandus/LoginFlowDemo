@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController, UITextFieldDelegate, Networking {
+final class LoginViewController: UIViewController, UITextFieldDelegate, AccountLogging {
 
     // MARK: Responding to View Events
     
@@ -71,8 +71,10 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var loginService: LoginService? = nil
     
     @IBAction func login(_ sender: Any) {
+        guard let loginService = loginService else { fatalError() }
         view.window?.endEditing(true)
         let controls = [UIControl](arrayLiteral: emailTextField, passwordTextField, loginButton)
         controls.forEach({ $0.isEnabled = false })
@@ -83,7 +85,7 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
             let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             return LoginCredentials(email: email, password: password)
         }()
-        webClient?.loginService.login(with: credentials, completionHandler: { [weak self] (error) in
+        loginService.login(with: credentials, completionHandler: { [weak self] (error) in
             guard let closureSelf = self else { return }
             controls.forEach({ $0.isEnabled = true })
             closureSelf.activityIndicator.stopAnimating()
@@ -102,11 +104,6 @@ final class LoginViewController: UIViewController, UITextFieldDelegate, Networki
             closureSelf.present(alert, animated: true, completion: nil)
         })
     }
-    
-    
-    // MARK: Networking
-    
-    var webClient: WebClient? = nil
 }
 
 extension LoginViewController: Navigatable {

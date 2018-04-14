@@ -19,11 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("Initial view controller is not navigation controller.")
         }
         navigationController.delegate = dependencies.navigationHandler
-        
         dependencies.navigationHandler.willNavigateHandler = { [weak self] viewController in
-            if let networking = viewController as? Networking {
-                networking.webClient = self?.dependencies.webClient
-            }
+            (viewController as? AccountLogging)?.loginService = self?.dependencies.loginService
+            (viewController as? AccountRegistration)?.registrationService = self?.dependencies.registrationService
         }
         
         return true
@@ -31,7 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 private struct Dependencies {
+    private let webClient = WebClient(baseURL: URL(string: "https://poco-test.herokuapp.com")!)
     let navigationHandler = NavigationHandler()
-    let webClient = WebClient(baseURL: URL(string: "https://poco-test.herokuapp.com")!)
+    let loginService: LoginService
+    let registrationService: RegistrationService
+    
+    init() {
+        loginService = LoginService(client: webClient)
+        registrationService = RegistrationService(client: webClient)
+    }
 }
 

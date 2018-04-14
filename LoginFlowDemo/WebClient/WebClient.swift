@@ -69,17 +69,6 @@ final class WebClient {
         task.resume()
         return task
     }
-    
-    
-    // MARK: Services
-    
-    lazy var loginService: LoginService = {
-        return LoginService(client: self)
-    }()
-    
-    lazy var registrationService: RegistrationService = {
-        return RegistrationService(client: self)
-    }()
 }
 
 enum WebClientError: Error {
@@ -103,8 +92,4 @@ extension ErrorPayload {
         guard let customError = Custom(rawValue: error) else { return .unknown }
         return customError
     }
-}
-
-protocol Networking: class {
-    var webClient: WebClient? { get set }
 }

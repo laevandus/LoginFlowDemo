@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SignUpAddressViewController: UIViewController, Networking, AccountCoordinator {
+final class SignUpAddressViewController: UIViewController, AccountCoordinator, AccountRegistration {
 
     // MARK: Responding to View Events
     
@@ -65,14 +65,15 @@ final class SignUpAddressViewController: UIViewController, Networking, AccountCo
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var countriesController: CountriesController? = nil
     private var keyboardVisibilityObserver: KeyboardVisibilityHandler? = nil
-    var webClient: WebClient? = nil
+    var registrationService: RegistrationService? = nil
     
     @IBAction func register(_ sender: Any) {
+        guard let registrationService = registrationService else { fatalError() }
         view.window?.endEditing(true)
         let controls = stackView.arrangedSubviews.compactMap({ $0 as? UIControl })
         controls.forEach({ $0.isEnabled = false })
         activityIndicator.startAnimating()
-        webClient?.registrationService.register(filledAccount(), completionHandler: { [weak self] (error) in
+        registrationService.register(filledAccount(), completionHandler: { [weak self] (error) in
             guard let closureSelf = self else { return }
             controls.forEach({ $0.isEnabled = true })
             closureSelf.activityIndicator.stopAnimating()

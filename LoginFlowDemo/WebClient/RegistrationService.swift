@@ -16,7 +16,7 @@ final class RegistrationService {
         case failedConnecting
     }
     
-    private weak var client: WebClient?
+    private let client: WebClient
     
     init(client: WebClient) {
         self.client = client
@@ -32,7 +32,6 @@ final class RegistrationService {
     }
     
     private func tryRegistering(account: Account, completionHandler: @escaping (RegistrationError?) -> Void) {
-        guard let client = client else { fatalError("Client is not available.") }
         let resource = Resource<Account>(content: account, path: "/addUser")
         let task = client.load(resource, completionHandler: { [weak self] (response, error) in
             guard let closureSelf = self else { return }
@@ -87,4 +86,8 @@ extension RegistrationService.RegistrationError {
             return NSLocalizedString("RegistrationFailureDescription_TooShortPassword", comment: "Account registration failure description when password is too short.")
         }
     }
+}
+
+protocol AccountRegistration: class {
+    var registrationService: RegistrationService? { get set }
 }

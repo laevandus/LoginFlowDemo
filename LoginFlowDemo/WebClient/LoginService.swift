@@ -15,7 +15,7 @@ final class LoginService {
         case invalidCredentials
     }
     
-    private weak var client: WebClient?
+    private let client: WebClient
     
     init(client: WebClient) {
         self.client = client
@@ -31,7 +31,6 @@ final class LoginService {
     }
     
     private func tryLoggingIn(with credentials: LoginCredentials, completionHandler: @escaping (LoginError?) -> Void) {
-        guard let client = client else { fatalError("Client is not available.") }
         let resource = Resource<LoginCredentials>(content: credentials, path: "/login")
         let task = client.load(resource, completionHandler: { [weak self] (response, error) in
             guard let closureSelf = self else { return }
@@ -81,4 +80,8 @@ extension LoginService.LoginError {
             return NSLocalizedString("LoginFailureDescription_InvalidCredentials", comment: "Login failure description when credentials are invalid.")
         }
     }
+}
+
+protocol AccountLogging: class {
+    var loginService: LoginService? { get set }
 }
