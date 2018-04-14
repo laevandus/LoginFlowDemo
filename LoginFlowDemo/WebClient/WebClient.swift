@@ -21,23 +21,7 @@ final class WebClient {
     }()
     
     @discardableResult func load<T>(_ resource: Resource<T>, completionHandler: @escaping (Data?, WebClientError) -> Void) -> URLSessionDataTask {
-        var request = URLRequest(url: baseURL.appendingPathComponent(resource.path))
-        request.addValue("LoginFlowDemo", forHTTPHeaderField: "User-Agent")
-        request.httpMethod = resource.method.rawValue
-        resource.headers.forEach { (field, value) in
-            request.setValue(value, forHTTPHeaderField: field)
-        }
-        
-        switch resource.method {
-        case .get:
-            break
-        case .post:
-            if let bodyData = resource.body.data(using: .utf8), bodyData.count > 0 {
-                request.httpBody = bodyData
-                request.setValue("\(bodyData.count)", forHTTPHeaderField: "Content-Length")
-            }
-        }
-        
+        let request = URLRequest(baseURL: baseURL, resource: resource)
         let task = session.dataTask(with: request) { (data, urlResponse, _) in
             guard let response = urlResponse as? HTTPURLResponse else {
                 completionHandler(nil, .invalidResponse)
@@ -85,5 +69,25 @@ extension ErrorPayload {
     var customError: Custom {
         guard let customError = Custom(rawValue: error) else { return .unknown }
         return customError
+    }
+}
+
+fileprivate extension URLRequest {
+    init<T>(baseURL: URL, resource: Resource<T>) {
+        self.init(url: baseURL.appendingPathComponent(resource.path))
+        addValue("LoginFlowDemo", forHTTPHeaderField: "User-Agent")
+        httpMethod = resource.method.rawValue
+        resource.headers.forEach { (field, value) in
+            setValue(value, forHTTPHeaderField: field)
+        }
+        switch resource.method {
+        case .get:
+            break
+        case .post:
+            if let bodyData = resource.body.data(using: .utf8), bodyData.count > 0 {
+                httpBody = bodyData
+                setValue("\(bodyData.count)", forHTTPHeaderField: "Content-Length")
+            }
+        }
     }
 }
